@@ -1,0 +1,4 @@
+pyinstaller==6.15.0
+PyQt5==5.15.11
+keyboard==0.13.5
+pywin32==311

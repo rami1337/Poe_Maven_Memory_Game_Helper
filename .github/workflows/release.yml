@@ -1,0 +1,48 @@
+# This is a GitHub Actions workflow file.
+# It defines a set of automated tasks that will run on GitHub's servers.
+
+name: Create Release
+
+# This section defines when the workflow will run.
+# It triggers automatically whenever you push a new tag that starts with 'v' (e.g., v1.0.0, v1.1.0).
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    # This job will run on a fresh, virtual Windows machine.
+    runs-on: windows-latest
+
+    steps:
+      # Step 1: Checks out your repository's code so the workflow can access it.
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # Step 2: Sets up the Python programming language on the virtual machine.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # You can change this to your Python version
+
+      # Step 3: Installs the necessary Python libraries from your requirements.txt file.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Runs the PyInstaller command to build the single .exe file.
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --onefile --windowed --name "PoE Maven Memory Game Helper" --add-data "app.py;." --add-data "config.py;." --add-data "overlay.py;." --add-data "config_window.py;." --add-data "icon.png;." --icon="icon.ico" main.py
+
+      # Step 5: This action automatically creates a new release on your GitHub page.
+      # It uses the tag name for the release version and attaches your .exe file.
+      - name: Create Release and Upload Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          # This tells the action to create a draft release, so you can review it before publishing.
+          # Change to 'false' if you want it to publish automatically.
+          draft: true
+          files: dist/PoE Maven Memory Game Helper.exe
