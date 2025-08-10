@@ -40,7 +40,7 @@ jobs:
       # Step 4: Runs the PyInstaller command to build the single .exe file.
       - name: Build with PyInstaller
         run: |
-          pyinstaller --onefile --windowed --name "PoE Maven Memory Game Helper" --add-data "app.py;." --add-data "config.py;." --add-data "overlay.py;." --add-data "config_window.py;." --add-data "icon.png;." --icon="icon.ico" main.py
+          pyinstaller --onefile --windowed --name "PoE_Maven_Memory_Game_Helper" --add-data "app.py;." --add-data "config.py;." --add-data "overlay.py;." --add-data "config_window.py;." --add-data "icon.png;." --icon="icon.ico" main.py
 
       # Step 5: This action automatically creates a new release on your GitHub page.
       # It uses the tag name for the release version and attaches your .exe file.
@@ -50,4 +50,4 @@ jobs:
           # This tells the action to create a draft release, so you can review it before publishing.
           # Change to 'false' if you want it to publish automatically.
           draft: true
-          files: dist/PoE Maven Memory Game Helper.exe
+          files: dist/PoE_Maven_Memory_Game_Helper.exe
