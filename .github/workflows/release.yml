@@ -15,6 +15,11 @@ jobs:
     # This job will run on a fresh, virtual Windows machine.
     runs-on: windows-latest
 
+    # --- NEW: Explicitly grant write permissions to the job ---
+    # This allows the action to create a release and upload assets.
+    permissions:
+      contents: write
+
     steps:
       # Step 1: Checks out your repository's code so the workflow can access it.
       - name: Check out code
